@@ -1,6 +1,7 @@
 import puppeteer, { LaunchOptions } from 'puppeteer-core'
 import chromeLambda from 'chrome-aws-lambda'
 import { NowRequest, NowResponse } from '@now/node'
+import path from 'path'
 import { promises as fs } from 'fs'
 
 const getLaunchOptions = async (): Promise<LaunchOptions> => process.env.IS_PRODUCUTION
@@ -18,7 +19,7 @@ const getScreenshot = async (title: string): Promise<Buffer> => {
   const page = await browser.newPage()
 
   await page.setViewport({ width: 1280, height: 680 })
-  await page.setContent((await fs.readFile('./_static/template.html', 'utf-8')).replace('(TITLE_TEXT)', title))
+  await page.setContent((await fs.readFile(path.join(__dirname, '_static/template.html'), 'utf-8')).replace('(TITLE_TEXT)', title))
 
   return page.screenshot({ type: 'png' })
 }
