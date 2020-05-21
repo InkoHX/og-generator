@@ -1,7 +1,7 @@
 {
   "name": "og-generator",
   "version": "0.0.1",
-  "description": "Image generation server for open graphics",
+  "description": "Image generation server for Open Graph",
   "license": "MIT",
   "homepage": "https://og-generator.now.sh",
   "author": {
