@@ -1,21 +1,20 @@
 {
-  "name": "typescript-template-yarn",
+  "name": "og-generator",
   "version": "0.0.1",
-  "description": "TypeScript template for Yarn.",
-  "main": "dist/index.js",
+  "description": "Image generation server for open graphics",
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://og-generator.now.sh",
   "author": {
     "name": "InkoHX",
     "email": "inkohx@gmail.com",
-    "url": "https://about.inkohx.me"
+    "url": "https://inkohx.me"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/InkoHX/***.git"
+    "url": "https://github.com/InkoHX/og-generator.git"
   },
   "bugs": {
-    "url": "https://github.com/InkoHX/***/issues"
+    "url": "https://github.com/InkoHX/og-generator/issues"
   },
   "funding": {
     "type": "patreon",
@@ -23,8 +22,8 @@
   },
   "keywords": [],
   "scripts": {
-    "lint": "eslint --ext .ts --ignore-path .gitignore ./src",
-    "lint:fix": "eslint --ext .ts --ignore-path .gitignore ./src --fix",
+    "lint": "eslint --ext .ts --ignore-path .gitignore ./api",
+    "lint:fix": "eslint --ext .ts --ignore-path .gitignore ./api --fix",
     "compile": "tsc -p .",
     "compile:test": "tsc -p . --noEmit",
     "watch": "tsc -w -p .",
