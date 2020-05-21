@@ -7,6 +7,8 @@
 ![LICENCE](https://img.shields.io/github/license/InkoHX/og-generator?label=LICENCE&style=flat-square)
 ![GitHub repo size](https://img.shields.io/github/repo-size/InkoHX/og-generator)
 
+</div>
+
 ## Usage
 
 ```txt
@@ -20,5 +22,3 @@ https://og-generator.now.sh/?title=Discord.js%20v12%E3%81%8C%E3%83%AA%E3%83%AA%E
 ```
 
 ![Screenshot](https://i.imgur.com/nFVl3TQ.png)
-
-</div>
