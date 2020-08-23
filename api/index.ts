@@ -34,6 +34,7 @@ export default async function (request: NowRequest, response: NowResponse) {
     const screenshot = await getScreenshot(title)
 
     response.setHeader('Content-Type', 'image/png')
+    response.setHeader('Cache-Control', 'max-age=31536000')
 
     return response
       .status(200)
