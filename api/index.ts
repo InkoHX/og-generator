@@ -1,6 +1,6 @@
 import puppeteer, { LaunchOptions } from 'puppeteer-core'
 import chromeLambda from 'chrome-aws-lambda'
-import { NowRequest, NowResponse } from '@now/node'
+import { VercelRequest, VercelResponse } from '@vercel/node'
 import path from 'path'
 import { promises as fs } from 'fs'
 
@@ -14,24 +14,33 @@ const getLaunchOptions = async (): Promise<LaunchOptions> => process.env.IS_PROD
     headless: true
   }
 
-const getScreenshot = async (title: string): Promise<Buffer> => {
+const getScreenshot = async (title: string, date: Date, platform = 'InkoHX Blog'): Promise<Buffer> => {
+  const dateTime = new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  })
   const browser = await puppeteer.launch(await getLaunchOptions())
   const page = await browser.newPage()
 
   await page.setViewport({ width: 1280, height: 680 })
-  await page.setContent((await fs.readFile(path.join(__dirname, '_static/template.html'), 'utf-8')).replace('(TITLE_TEXT)', title))
+  await page.setContent((await fs.readFile(path.join(__dirname, '_static/template.html'), 'utf-8'))
+    .replace('(TITLE_TEXT)', title)
+    .replace('(DATE)', dateTime.format(date))
+    .replace('(PLATFORM)', platform))
 
   return page.screenshot({ type: 'png' })
 }
 
 // eslint-disable-next-line
-export default async function (request: NowRequest, response: NowResponse) {
+export default async function (request: VercelRequest, response: VercelResponse) {
   try {
-    const { title } = request.query
+    const { title, date, platform } = request.query
 
-    if (typeof title !== 'string') return response.status(400).send({ message: 'Require: title query' })
+    if (typeof title !== 'string') return response.status(400).send({ message: 'Title is required' })
+    if (typeof date !== 'string' || Number.isNaN(Date.parse(date))) return response.status(400).send({ message: 'The data format is incorrect.' })
+    if (Array.isArray(platform)) return response.status(400).send({ message: 'The platform is incorrect.' })
 
-    const screenshot = await getScreenshot(title)
+    const screenshot = await getScreenshot(title, new Date(date), platform)
 
     response.setHeader('Content-Type', 'image/png')
     response.setHeader('Cache-Control', 'max-age=31536000')

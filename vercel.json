@@ -2,10 +2,7 @@
   "routes": [
     {
       "src": "/",
-      "dest": "/api/index.ts",
-      "headers": {
-        "Cache-Control": "max-age=31536000"
-      }
+      "dest": "/api/index.ts"
     }
   ]
 }
