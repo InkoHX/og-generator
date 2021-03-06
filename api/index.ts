@@ -43,7 +43,7 @@ export default async function (request: VercelRequest, response: VercelResponse)
     const screenshot = await getScreenshot(title, new Date(date), platform)
 
     response.setHeader('Content-Type', 'image/png')
-    response.setHeader('Cache-Control', 'max-age=31536000')
+    response.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
 
     return response
       .status(200)
