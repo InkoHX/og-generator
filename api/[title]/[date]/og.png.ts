@@ -1,12 +1,18 @@
-import puppeteer, { LaunchOptions } from 'puppeteer-core'
-import chromeLambda from 'chrome-aws-lambda'
 import { VercelRequest, VercelResponse } from '@vercel/node'
-import path from 'path'
+import chromeLambda from 'chrome-aws-lambda'
 import { promises as fs } from 'fs'
+import path from 'path'
+import puppeteer, {
+  BrowserOptions,
+  ChromeArgOptions,
+  LaunchOptions
+} from 'puppeteer-core'
 
-const getLaunchOptions = async (): Promise<LaunchOptions> => process.env.AWS_REGION
+const getLaunchOptions = async (): Promise<LaunchOptions & ChromeArgOptions & BrowserOptions> => process.env.AWS_REGION
   ? {
-    executablePath: await chromeLambda.executablePath
+    executablePath: await chromeLambda.executablePath,
+    args: chromeLambda.args,
+    headless: chromeLambda.headless
   } : {
     executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
   }
