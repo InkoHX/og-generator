@@ -29,6 +29,7 @@ const getScreenshot = async (title: string, date: Date): Promise<string | void |
   await page.setContent((await fs.readFile(path.join(__dirname, '_static/template.html'), 'utf-8'))
     .replace('(TITLE_TEXT)', title)
     .replace('(DATE)', dateTime.format(date)))
+  await page.evaluateHandle('document.fonts.ready')
 
   return page.screenshot({ type: 'png' })
 }
